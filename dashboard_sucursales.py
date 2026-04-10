@@ -7,7 +7,7 @@ st.set_page_config(page_title="Monitor Sucursales", page_icon="🛞", layout="wi
 st.markdown('<h1 style="text-align:center; color:#1f77b4;">🛞 Monitor de Actividad por Sucursal</h1>', unsafe_allow_html=True)
 
 DRIVE_ID = "1J9bDGe1bp0K-3Ms4cx9uI5f3qyq-NBgL"
-DRIVE_URL = f"https://drive.google.com/uc?export=download&id={DRIVE_ID}"
+DRIVE_URL = f"https://drive.google.com/uc?export=download&id={DRIVE_ID}&confirm=t"
 
 @st.cache_data(ttl=3600)
 def cargar_datos():
