@@ -1,18 +1,14 @@
 import streamlit as st
 import pandas as pd
-import requests
-from io import BytesIO
 
 st.set_page_config(page_title="Monitor Sucursales", page_icon="🛞", layout="wide")
 st.markdown('<h1 style="text-align:center; color:#1f77b4;">🛞 Monitor de Actividad por Sucursal</h1>', unsafe_allow_html=True)
 
-DRIVE_ID = "1J9bDGe1bp0K-3Ms4cx9uI5f3qyq-NBgL"
-DRIVE_URL = f"https://docs.google.com/spreadsheets/d/{DRIVE_ID}/export?format=xlsx"
+ARCHIVO = "Promedio por sucursal.xlsx"
 
 @st.cache_data(ttl=3600)
 def cargar_datos():
-    r = requests.get(DRIVE_URL)
-    sheets = pd.read_excel(BytesIO(r.content), sheet_name=None, engine='openpyxl')
+    sheets = pd.read_excel(ARCHIVO, sheet_name=None, engine='openpyxl')
     general = sheets['General']
     sm      = sheets['Mestro San Martín']
     beccar  = sheets['Maestro Beccar']
@@ -26,7 +22,7 @@ def limpiar(df):
     df['Stock'] = pd.to_numeric(df['Stock'], errors='coerce').fillna(0)
     return df
 
-with st.spinner("Cargando datos desde Drive..."):
+with st.spinner("Cargando datos..."):
     try:
         general, sm, beccar, base = cargar_datos()
         general = limpiar(general)
